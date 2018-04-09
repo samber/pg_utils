@@ -18,6 +18,15 @@ CREATE OR REPLACE VIEW my_show_running_queries AS
       AND query NOT ILIKE '%pg_stat_activity%'
     ORDER BY query_start desc;
 
+-- truncates query from my_show_running_queries
+-- select * from my_show_running_queries_trunc;
+CREATE OR REPLACE VIEW my_show_running_queries_trunc AS
+  SELECT pid, age(query_start, clock_timestamp()), usename, LEFT(query, 80)
+    FROM pg_stat_activity
+    WHERE query != '<IDLE>'
+      AND query NOT ILIKE '%pg_stat_activity%'
+    ORDER BY query_start desc;
+
 
 -- select * from my_show_slow_queries_1_min;
 CREATE OR REPLACE VIEW my_show_slow_queries_1_min AS
