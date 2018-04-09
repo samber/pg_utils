@@ -21,7 +21,7 @@ CREATE OR REPLACE VIEW my_show_running_queries AS
 -- truncates query from my_show_running_queries
 -- select * from my_show_running_queries_trunc;
 CREATE OR REPLACE VIEW my_show_running_queries_trunc AS
-  SELECT pid, age(query_start, clock_timestamp()), usename, LEFT(query, 80)
+  SELECT pid, age(query_start, clock_timestamp()), usename, LEFT(query, 80) AS query
     FROM pg_stat_activity
     WHERE query != '<IDLE>'
       AND query NOT ILIKE '%pg_stat_activity%'
