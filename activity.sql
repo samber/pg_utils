@@ -34,3 +34,7 @@ CREATE OR REPLACE VIEW my_show_slow_queries_1_min AS
     FROM  pg_stat_activity
     WHERE now() - query_start > '2 minutes'::interval
     ORDER BY runtime DESC;
+
+-- select * from my_show_number_connections;
+CREATE OR REPLACE VIEW my_show_number_connections AS
+  SELECT sum(numbackends) FROM pg_stat_database;
