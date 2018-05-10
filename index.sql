@@ -62,7 +62,7 @@ CREATE OR REPLACE VIEW my_show_low_used_indexes AS
     
 
 -- select * from my_show_bloat_estimation_index();
-CREATE OR REPLACE FUNCTION my_show_bloat_estimation_index() RETURNS TABLE(dbname name, schemaname name, relname name, idxname name, real_size numeric, extra_size float, extra_ratio float, fillfactor int, bloat_size float, bloat_ratio float, is_na boolean) AS
+CREATE OR REPLACE FUNCTION my_show_bloat_estimation_index() RETURNS TABLE(dbname name, schemaname name, relname name, idxname name, real_size numeric, extra_size numeric, extra_ratio float, fillfactor int, bloat_size float, bloat_ratio float, is_na boolean) AS
 $body$
   SELECT current_database(), nspname AS schemaname, tblname, idxname, bs*(relpages)::bigint AS real_size,
     bs*(relpages-est_pages)::bigint AS extra_size,
