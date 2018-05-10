@@ -28,6 +28,7 @@ language sql;
 
 
 -- select * from my_show_bloat_estimation_table();
+-- imported from: https://github.com/ioguix/pgsql-bloat-estimation/blob/master/table/table_bloat.sql
 CREATE OR REPLACE FUNCTION my_show_bloat_estimation_table() RETURNS TABLE(dbname name, schemaname name, relname name, real_size numeric, extra_size float, extra_ratio float, fillfactor int, bloat_size float, bloat_ratio float, is_na boolean) AS
 $body$
   SELECT current_database(), schemaname, tblname, bs*tblpages AS real_size,
