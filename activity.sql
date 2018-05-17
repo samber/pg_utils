@@ -38,3 +38,10 @@ CREATE OR REPLACE VIEW my_show_slow_queries_1_min AS
 -- select * from my_show_number_connections;
 CREATE OR REPLACE VIEW my_show_number_connections AS
   SELECT sum(numbackends) FROM pg_stat_database;
+
+-- select * from my_show_locks;
+CREATE OR REPLACE VIEW my_show_locks AS
+  SELECT t.relname,l.locktype,page,virtualtransaction,pid,mode,granted
+    FROM pg_locks l, pg_stat_all_tables t
+    WHERE l.relation=t.relid
+    ORDER BY relation ASC;
