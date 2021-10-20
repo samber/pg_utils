@@ -12,22 +12,20 @@ $body$
 language sql;
 
 
--- select * from my_show_table_vacuum('users');
-CREATE OR REPLACE FUNCTION my_show_table_vacuum(relname text) RETURNS TABLE(schemaname name, relname name, last_vacuum timestamp with time zone, last_autovacuum timestamp with time zone, vacuum_count bigint, autovacuum_count bigint) AS
+-- select * from my_show_table_vacuum();
+CREATE OR REPLACE FUNCTION my_show_table_vacuum() RETURNS TABLE(schemaname name, relname name, last_vacuum timestamp with time zone, last_autovacuum timestamp with time zone, vacuum_count bigint, autovacuum_count bigint) AS
 $body$
   SELECT schemaname, relname, last_vacuum, last_autovacuum, vacuum_count, autovacuum_count
     FROM pg_stat_all_tables
-    WHERE relname = $1
 $body$
 language sql;
 
 
--- select * from my_show_table_analyze('users');
-CREATE OR REPLACE FUNCTION my_show_table_analyze(relname text) RETURNS TABLE(schemaname name, relname name, last_analyze timestamp with time zone, last_autoanalyze timestamp with time zone, analyze_count bigint, autoanalyze_count bigint) AS
+-- select * from my_show_table_analyze();
+CREATE OR REPLACE FUNCTION my_show_table_analyze() RETURNS TABLE(schemaname name, relname name, last_analyze timestamp with time zone, last_autoanalyze timestamp with time zone, analyze_count bigint, autoanalyze_count bigint) AS
 $body$
   SELECT schemaname, relname, last_analyze, last_autoanalyze, analyze_count, autoanalyze_count
     FROM pg_stat_all_tables
-    WHERE relname = $1
 $body$
 language sql;
 
