@@ -1,5 +1,7 @@
 # Some useful DBA tools for PostgreSQL
 
-Function names are prefixed by "my_", for fast listing with psql auto-completion.
+\df for listing
+
+or \df <tab>
 
 :bulb: Do you now \watch psql command ?
