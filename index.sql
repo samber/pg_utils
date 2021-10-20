@@ -72,6 +72,7 @@ $body$
   WHERE t.schemaname='public'
   ORDER BY 1,2;
 
+$body$
 language sql;
 
 
