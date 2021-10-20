@@ -1,6 +1,7 @@
 
--- select * from my_show_table_size();
-CREATE OR REPLACE FUNCTION my_show_table_size() RETURNS TABLE(relname name, index_size text, size text, external_size text) AS
+
+-- select * from screeb_show_table_size();
+CREATE OR REPLACE FUNCTION screeb_show_table_size() RETURNS TABLE(relname name, index_size text, size text, external_size text) AS
 $body$
   SELECT
     relname as "Table",
@@ -12,8 +13,8 @@ $body$
 language sql;
 
 
--- select * from my_show_table_vacuum();
-CREATE OR REPLACE FUNCTION my_show_table_vacuum() RETURNS TABLE(schemaname name, relname name, last_vacuum timestamp with time zone, last_autovacuum timestamp with time zone, vacuum_count bigint, autovacuum_count bigint) AS
+-- select * from screeb_show_table_vacuum();
+CREATE OR REPLACE FUNCTION screeb_show_table_vacuum() RETURNS TABLE(schemaname name, relname name, last_vacuum timestamp with time zone, last_autovacuum timestamp with time zone, vacuum_count bigint, autovacuum_count bigint) AS
 $body$
   SELECT schemaname, relname, last_vacuum, last_autovacuum, vacuum_count, autovacuum_count
     FROM pg_stat_all_tables
@@ -21,8 +22,8 @@ $body$
 language sql;
 
 
--- select * from my_show_table_analyze();
-CREATE OR REPLACE FUNCTION my_show_table_analyze() RETURNS TABLE(schemaname name, relname name, last_analyze timestamp with time zone, last_autoanalyze timestamp with time zone, analyze_count bigint, autoanalyze_count bigint) AS
+-- select * from screeb_show_table_analyze('users');
+CREATE OR REPLACE FUNCTION screeb_show_table_analyze() RETURNS TABLE(schemaname name, relname name, last_analyze timestamp with time zone, last_autoanalyze timestamp with time zone, analyze_count bigint, autoanalyze_count bigint) AS
 $body$
   SELECT schemaname, relname, last_analyze, last_autoanalyze, analyze_count, autoanalyze_count
     FROM pg_stat_all_tables
@@ -30,9 +31,9 @@ $body$
 language sql;
 
 
--- select * from my_show_bloat_estimation_table();
+-- select * from screeb_show_bloat_estimation_table();
 -- imported from: https://github.com/ioguix/pgsql-bloat-estimation/blob/master/table/table_bloat.sql
-CREATE OR REPLACE FUNCTION my_show_bloat_estimation_table() RETURNS TABLE(dbname name, schemaname name, relname name, real_size numeric, extra_size float, extra_ratio float, fillfactor int, bloat_size float, bloat_ratio float, is_na boolean) AS
+CREATE OR REPLACE FUNCTION screeb_show_bloat_estimation_table() RETURNS TABLE(dbname name, schemaname name, relname name, real_size numeric, extra_size float, extra_ratio float, fillfactor int, bloat_size float, bloat_ratio float, is_na boolean) AS
 $body$
   SELECT current_database(), schemaname, tblname, bs*tblpages AS real_size,
     (tblpages-est_tblpages)*bs AS extra_size,
